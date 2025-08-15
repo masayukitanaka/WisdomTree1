@@ -84,7 +84,7 @@ export default function AnimatedCircle({ size = 300 }: AnimatedCircleProps) {
       >
         <Animated.View style={[styles.background, dynamicStyles.background, animatedBackgroundStyle]}>
           <Image
-            source={require("../assets/images/background2.jpeg")}
+            source={require("../assets/images/background.jpg")}
             style={styles.backgroundImage}
             contentFit="cover"
           />
