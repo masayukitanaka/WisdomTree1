@@ -8,6 +8,7 @@ import Animated, {
   Easing,
 } from "react-native-reanimated";
 import { useEffect } from "react";
+import MaskedView from "@react-native-masked-view/masked-view";
 
 interface AnimatedCircleProps {
   size?: number;
@@ -71,13 +72,24 @@ export default function AnimatedCircle({ size = 300 }: AnimatedCircleProps) {
 
   return (
     <View style={[styles.maskContainer, dynamicStyles.maskContainer]}>
-      <Animated.View style={[styles.background, dynamicStyles.background, animatedBackgroundStyle]}>
-        <Image
-          source={require("../assets/images/background2.jpeg")}
-          style={styles.backgroundImage}
-          contentFit="cover"
-        />
-      </Animated.View>
+      <MaskedView
+        style={[styles.maskedBackground, dynamicStyles.maskContainer]}
+        maskElement={
+          <Image
+            source={require("../assets/images/mask2.png")}
+            style={[styles.maskImage, dynamicStyles.treeImage]}
+            contentFit="cover"
+          />
+        }
+      >
+        <Animated.View style={[styles.background, dynamicStyles.background, animatedBackgroundStyle]}>
+          <Image
+            source={require("../assets/images/background2.jpeg")}
+            style={styles.backgroundImage}
+            contentFit="cover"
+          />
+        </Animated.View>
+      </MaskedView>
       <Image
         source={require("../assets/images/tree_unmasked.png")}
         style={[styles.treeImage, dynamicStyles.treeImage]}
@@ -99,8 +111,16 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
-  treeImage: {
+  maskedBackground: {
+    position: "relative",
+    overflow: "hidden",
+  },
+  maskImage: {
     position: "absolute",
     zIndex: 1,
+  },
+  treeImage: {
+    position: "absolute",
+    zIndex: 2,
   },
 });
